@@ -1,0 +1,180 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+.dark-theme {
+    background-color: #222;
+    color: #f9f9f9;
+}
+
+header {
+    background-color: #0056b3;
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+
+
+.footer {
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
+    background: #0056b3;
+    color: #fff;
+    border-radius: 5px;
+}
+
+/* التنسيق العام لقائمة التنقل */
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    background-color: #333;
+}
+
+nav ul li {
+    display: inline-block;
+    margin: 0 15px;
+    position: relative;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1em;
+    padding: 10px 15px;
+    display: block;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+/* تأثيرات hover و focus و active للأزرار */
+nav ul li a:hover,
+nav ul li a:focus,
+nav ul li a:active {
+    background-color: #0055cc;
+    transform: translateY(-2px); /* تأثير التحريك */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* تأثير الظل */
+}
+
+/* تنسيق القوائم المنسدلة */
+nav ul li .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 200px;
+    border-radius: 5px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* ظلال القوائم المنسدلة */
+    padding: 10px 0;
+    z-index: 1;
+}
+
+/* ظهور القوائم المنسدلة عند التمرير */
+nav ul li:hover .dropdown-content {
+    display: block;
+    animation: slideDown 0.3s ease-out; /* تأثير السحب للأسفل عند ظهور القائمة */
+}
+
+/* تنسيق العناصر داخل القوائم المنسدلة */
+nav ul li .dropdown-content a {
+    color: #003366;
+    padding: 12px 20px;
+    text-decoration: none;
+    display: block;
+    transition: all 0.3s ease;
+    border-radius: 5px;
+}
+
+/* تأثيرات hover و focus و active للعناصر داخل القوائم المنسدلة */
+nav ul li .dropdown-content a:hover,
+nav ul li .dropdown-content a:focus,
+nav ul li .dropdown-content a:active {
+    background-color: #0055cc;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* إضافة تأثير سحب القائمة للأسفل */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.action-button {
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin: 5px 0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.action-button:hover {
+    background-color: #003d80;
+}
+
+.action-button:active {
+    background-color: #00214d;
+}
+
+form {
+    margin: 20px 0;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px -10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.toggle-buttons {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+}
+
+.toggle-buttons button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.toggle-buttons button:hover {
+    background-color: #555;
+}
+
+.toggle-buttons button:active {
+    background-color: #111;
+}
