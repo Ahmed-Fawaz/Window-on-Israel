@@ -5,143 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="monetag" content="318815853dacbb3efced8f324018e9c5">
     <title>نافذة على إسرائيل - مدونة الدراسات اليهودية والإسرائيلية</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
-    <script>
-        let books = [];
-        const commonKeywords = ["تاريخ يهودي", "كتب الأدب العبري", "كتب الديانة اليهودية", "الصهيونية", "كتب قواعد اللغة العبرية"];
-
-        function toggleLanguage() {
-            document.documentElement.lang = document.documentElement.lang === 'ar' ? 'en' : 'ar';
-            document.documentElement.dir = document.documentElement.dir === 'rtl' ? 'ltr' : 'rtl';
-            location.reload();
-        }
-
-        function toggleTheme() {
-            document.body.classList.toggle('dark-theme');
-        }
-
-        function navigateToSection(keyword) {
-            const searchInput = document.getElementById('search');
-            searchInput.value = keyword;
-            document.getElementById('search-form').dispatchEvent(new Event('submit'));
-        }
-
-        function showDownload(bookIndex) {
-            const waitingScreen = document.getElementById('waiting-screen');
-            const downloadButton = document.getElementById('download-button');
-            const downloadLink = document.getElementById('download-link');
-
-            waitingScreen.style.display = 'block';
-            setTimeout(() => {
-                waitingScreen.style.display = 'none';
-                downloadButton.style.display = 'block';
-                downloadLink.href = books[bookIndex].fileUrl;
-            }, 10000);
-        }
-
-        function handleUpload(event) {
-            event.preventDefault();
-            const fileInput = document.getElementById('book-upload');
-            const titleInput = document.getElementById('book-title');
-            const descInput = document.getElementById('book-description');
-            const keywordsInput = document.getElementById('book-keywords');
-            const coverInput = document.getElementById('book-cover');
-
-            if (!fileInput.files[0] || !titleInput.value || !descInput.value || !keywordsInput.value) {
-                alert('يرجى ملء جميع الحقول المطلوبة.');
-                return;
-            }
-
-            const file = fileInput.files[0];
-            const book = {
-                title: titleInput.value,
-                description: descInput.value,
-                keywords: keywordsInput.value.split(','),
-                fileUrl: URL.createObjectURL(file),
-                coverUrl: coverInput.files[0] ? URL.createObjectURL(coverInput.files[0]) : null
-            };
-
-            if (!book.coverUrl) {
-                book.coverUrl = 'default-cover.jpg';
-            }
-
-            books.push(book);
-            addBookToList(book, books.length - 1);
-
-            fileInput.value = '';
-            titleInput.value = '';
-            descInput.value = '';
-            keywordsInput.value = '';
-            coverInput.value = '';
-
-            alert('تم رفع الكتاب بنجاح!');
-        }
-
-        function addBookToList(book, index) {
-            const bookList = document.getElementById('book-list');
-            const newBook = document.createElement('div');
-            newBook.className = 'book';
-            newBook.innerHTML = `
-                <img src="${book.coverUrl}" alt="${book.title}" style="width: 100px; height: 150px; object-fit: cover;">
-                <h3>${book.title}</h3>
-                <p><strong>الوصف:</strong> ${book.description}</p>
-                <button class="action-button" onclick="openBook(${index})">قراءة</button>
-                <button class="action-button" onclick="showDownload(${index})">تحميل</button>
-            `;
-            bookList.appendChild(newBook);
-        }
-
-        function searchBooks(event) {
-            event.preventDefault();
-            const query = document.getElementById('search').value.toLowerCase();
-            const bookList = document.getElementById('book-list');
-            bookList.innerHTML = '';
-
-            books.forEach((book, index) => {
-                if (book.title.toLowerCase().includes(query) || book.keywords.some(keyword => keyword.toLowerCase().includes(query))) {
-                    addBookToList(book, index);
-                }
-            });
-        }
-
-        function populateKeywords() {
-            const keywordsInput = document.getElementById('book-keywords');
-            const keywordDropdown = document.getElementById('keyword-dropdown');
-            keywordDropdown.innerHTML = '';
-
-            commonKeywords.forEach(keyword => {
-                const option = document.createElement('option');
-                option.value = keyword;
-                keywordDropdown.appendChild(option);
-            });
-        }
-
-        function openBook(bookIndex) {
-            const book = books[bookIndex];
-            const readerWindow = window.open('', '_blank');
-            readerWindow.document.write(`
-                <!DOCTYPE html>
-                <html lang="ar">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>قراءة: ${book.title}</title>
-                </head>
-                <body style="margin:0;">
-                    <iframe src="${book.fileUrl}" style="width:100%; height:100vh; border:none;"></iframe>
-                </body>
-                </html>
-            `);
-        }
-    </script>
+    <script src="script.js"></script>
 </head>
-<body onload="populateKeywords()">
+<body>
+    
+    <button id="back-to-top" onclick="scrollToTop()">⬆</button>
+
     <header>
         <h1>نافذة على إسرائيل</h1>
         <h4>مدونة الدراسات اليهودية والإسرائيلية</h4>
     </header>
-
-
     <nav>
         <ul>
             <li><a href="index.html">الصفحة الرئيسية</a></li>
@@ -169,61 +44,18 @@
         </ul>
     </nav>
 
-
-
-<!-- Ad Space at the Top -->
+    <!-- Ad Space at the Top -->
     <div class="ad" style="text-align: center; margin-top: 10px;">Ad Space - Top</div>
 
-    <div class="container">
-        <h2>الكتب المتاحة</h2>
+<div class="container">
+    <h4 class="text-center mb-4">الصفحة الرئيسية</h4>
+</div>
 
-        <form id="search-form" onsubmit="searchBooks(event)">
-            <input type="text" id="search" placeholder="بحث عن عنوان أو كلمات مفتاحية..." required>
-            <button type="submit" class="action-button">بحث</button>
-        </form>
+<div class="ad" style="text-align: center; margin-top: 20px;">Ad Space - Bottom</div>
 
-        <form id="upload-form" onsubmit="handleUpload(event)">
-            <label for="book-title">عنوان الكتاب:</label>
-            <input type="text" id="book-title" required>
-
-            <label for="book-description">الوصف:</label>
-            <textarea id="book-description" rows="3" required></textarea>
-
-            <label for="book-keywords">الكلمات المفتاحية (مفصولة بفاصلة):</label>
-            <input list="keyword-dropdown" id="book-keywords" required>
-            <datalist id="keyword-dropdown"></datalist>
-
-            <label for="book-cover">غلاف الكتاب (اختياري):</label>
-            <input type="file" id="book-cover" accept="image/*">
-
-            <label for="book-upload">رفع الكتاب (PDF):</label>
-            <input type="file" id="book-upload" accept=".pdf" required>
-
-            <button type="submit" class="action-button">رفع</button>
-        </form>
-
-        <div id="book-list"></div>
-
-       <!-- Waiting Screen for Download -->
-        <div id="waiting-screen" style="display:none; text-align:center; padding:20px; background:#f9f9f9; margin-top:20px; border:1px solid #ddd;">
-            <p>الرجاء الإنتظار ، يتم تحضير الكتاب للتحميل</p>
-            <!-- Ad Space in the Waiting Screen -->
-            <div class="ad">Ad Space - Waiting Screen</div>
-        </div>
-
-        <!-- Download Button -->
-        <div id="download-button" style="display:none; text-align:center; margin-top:20px;">
-            <a id="download-link" href="#" download class="button">اضغط هنا لتحميل الكتاب</a>
-        </div>
-    </div>
-
-    <!-- Ad Space at the Bottom -->
-    <div class="ad" style="text-align: center; margin-top: 20px;">Ad Space - Bottom</div>
-
-    <!-- Footer Section -->
-    <div class="footer">
-        <p>مدونة نافذة على إسرائيل. جميع الحقوق محفوظة 2024 &copy; </p>
-    </div>
+   <!-- Footer Section -->
+   <div class="footer">
+       <p>مدونة نافذة على إسرائيل. جميع الحقوق محفوظة 2024 &copy; </p>
+   </div>
 </body>
 </html>
-
