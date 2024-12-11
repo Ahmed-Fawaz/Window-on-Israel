@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="monetag" content="318815853dacbb3efced8f324018e9c5">
+    <title>نافذة على إسرائيل - مدونة الدراسات اليهودية والإسرائيلية</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+<body>
+    <button id="back-to-top" onclick="scrollToTop()">⬆</button>
+
+    <header>
+        <h1>نافذة على إسرائيل</h1>
+        <h4>مدونة الدراسات اليهودية والإسرائيلية</h4>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html">الصفحة الرئيسية</a></li>
+            <li class="dropdown">
+                <a href="books.html">المصادر والمراجع</a>
+                <ul class="dropdown-content">
+                    <li><a href="#" onclick="navigateToSection('كتب قواعد اللغة العبرية')">كتب قواعد اللغة العبرية</a></li>
+                    <li><a href="#" onclick="navigateToSection('تاريخ يهودي')">تاريخ يهودي</a></li>
+                    <li><a href="#" onclick="navigateToSection('كتب الأدب العبري')">كتب الأدب العبري</a></li>
+                    <li><a href="#" onclick="navigateToSection('كتب الديانة اليهودية')">كتب الديانة اليهودية</a></li>
+                    <li><a href="#" onclick="navigateToSection('الصهيونية')">الصهيونية</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#">المقالات الأكاديمية</a>
+                <ul class="dropdown-content">
+                    <li><a href="old-hebrew-literature-articles.html">الأدب العبري</a></li>
+                    <li><a href="medieval-hebrew-literature-articles.html">الديانة اليهودية</a></li>
+                    <li><a href="modern-hebrew-literature-articles.html">مقالات رأي</a></li>
+                </ul>
+            </li>
+            <li><a href="contact.html">أخبار مترجمة من الصحف العبرية</a></li>
+            <li><a href="contact.html">التواصل</a></li>
+            <li><a href="signup.html">إنشاء حساب</a></li>
+        </ul>
+    </nav>
+
+    <!-- Ad Space at the Top -->
+    <div class="ad" style="text-align: center; margin-top: 10px;">Ad Space - Top</div>
+
+<div class="container my-5">
+    <h4 class="text-center mb-4">المصادر والمراجع المتاحة</h4>
+    <!-- Search Section -->
+    <div class="search-container">
+        <input type="text" id="searchBar" placeholder="ابحث عن كتاب أو كلمة مفتاحية..." oninput="filterBooks()">
+        <button id="searchButton" onclick="filterBooks()">بحث</button>
+    </div>
+    <div class="popular-keywords">
+        <strong>الكلمات المفتاحية الشائعة:</strong>
+        <span onclick="applyKeyword('قواعد اللغة العبرية')">قواعد اللغة العبرية</span>
+        <span onclick="applyKeyword('ديانة')">ديانة</span>
+        <span onclick="applyKeyword('تاريخ')">تاريخ</span>
+        <span onclick="applyKeyword('أدب')">أدب</span>
+        <span onclick="applyKeyword('الصهيونية')">الصهيونية</span>
+     
+    </div>
+    <div class="row g-4" id="booksContainer">
+        <!-- Example Book Card -->
+        <div class="col-sm-6 col-md-4 col-lg-3 book-item" data-title="موسوعة اليهود واليهودية والصهيونية - المجلد الأول (الإطار النظري)" data-keywords="موسوعة, عبدالوهاب المسيري ,تاريخ, دين, الصهيونية">
+            <div class="book-card">
+                <img src="كتب/كتب متنوعة وشاملة/عبدالوهاب المسيري/موسوعة اليهود واليهودية والصهيونية/غلاف الموسوعة.png" alt="صورة الكتاب" class="img-fluid mb-3">
+                <h5 class="mb-2">موسوعة اليهود واليهودية والصهيونية - المجلد الأول (الإطار النظري)</h5>
+                <button class="btn btn-primary w-100" onclick="showDetails('book-id')">عرض تفاصيل الكتاب</button>
+            </div>
+        </div>
+        <!-- Add more book cards as needed -->
+    </div>
+</div>
+
+<!-- Book Details Modal -->
+<div class="modal fade" id="bookDetailsModal" tabindex="-1" aria-labelledby="bookDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bookDetailsModalLabel">تفاصيل الكتاب</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+            </div>
+            <div class="modal-body">
+                <img id="bookImage" src="" alt="صورة الكتاب" class="img-fluid mb-3">
+                <h5 id="bookTitle">موسوعة اليهود واليهودية والصهيونية - المجلد الأول (الإطار النظري)</h5>
+                <p id="bookDescription">وصف الكتاب...</p>
+                <p><strong>المؤلف:</strong> <span id="bookAuthor">عبد الوهاب المسيري</span></p>
+                <div class="d-flex justify-content-center gap-2">
+                    <button class="btn btn-success" onclick="startDownload()">تحميل</button>
+                    <button class="btn btn-info" onclick="readBook('كتب/كتب متنوعة وشاملة/عبدالوهاب المسيري/موسوعة اليهود واليهودية والصهيونية/موسوعة اليهود واليهودية والصهيونية - المجلد الأول (الإطار النظري).pdf')">قراءة</button>
+                </div>
+                <div class="mt-3">
+                    <strong>الكلمات المفتاحية:</strong>
+                    <span id="bookKeywords">موسوعة, عبدالوهاب المسيري ,تاريخ, دين, الصهيونية</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Wait Screen Modal -->
+<div class="modal fade" id="waitModal" tabindex="-1" aria-labelledby="waitModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body wait-screen">
+                <p>الرجاء الانتظار، يتم تحضير الكتاب...</p>
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">جاري التحميل...</span>
+                </div>
+                <div class="ad-space">مساحة إعلانية</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function readBook(pdfUrl) {
+    window.open(pdfUrl, '_blank'); // يفتح الرابط في علامة تبويب جديدة
+    }
+
+    function showDetails(bookId) {
+        // مثال: جلب البيانات من خادم أو قاعدة بيانات
+        document.getElementById('bookImage').src="كتب/كتب متنوعة وشاملة/عبدالوهاب المسيري/موسوعة اليهود واليهودية والصهيونية/غلاف الموسوعة.png";
+        document.getElementById('bookTitle').innerText = 'موسوعة اليهود واليهودية والصهيونية - المجلد الأول (الإطار النظري)';
+        document.getElementById('bookDescription').innerText = 'هذا هو وصف الكتاب...';
+        document.getElementById('bookAuthor').innerText = 'عبد الوهاب المسيري';
+        document.getElementById('bookKeywords').innerText = 'موسوعة, عبدالوهاب المسيري ,تاريخ, دين, الصهيونية';
+        new bootstrap.Modal(document.getElementById('bookDetailsModal')).show();
+    }
+
+    function startDownload() {
+        new bootstrap.Modal(document.getElementById('waitModal')).show();
+        setTimeout(() => {
+            // رابط التحميل (التبديل بين الرابط الحقيقي والتنزيل التلقائي)
+            const downloadLink = 'https://www.mediafire.com/file/7flpss80jymx5m0/موسوعة+اليهود+واليهودية+والصهيونية+-+المجلد+الأول+(الإطار+النظري).pdf/file'; // ضع الرابط هنا
+            if (downloadLink) {
+                window.location.href = downloadLink;
+            } else {
+                alert('لم يتم توفير رابط، سيتم التحميل التلقائي.');
+            }
+        }, 10000); // 10 ثوانٍ
+    }
+
+    function filterBooks() {
+        const query = document.getElementById('searchBar').value.toLowerCase();
+        const books = document.querySelectorAll('.book-item');
+
+        books.forEach(book => {
+            const title = book.getAttribute('data-title').toLowerCase();
+            const keywords = book.getAttribute('data-keywords').toLowerCase();
+
+            if (title.includes(query) || keywords.includes(query)) {
+                book.style.display = 'block';
+            } else {
+                book.style.display = 'none';
+            }
+        });
+    }
+
+    function applyKeyword(keyword) {
+        document.getElementById('searchBar').value = keyword;
+        filterBooks();
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<div class="ad" style="text-align: center; margin-top: 20px;">Ad Space - Bottom</div>
+
+   <!-- Footer Section -->
+   <div class="footer">
+       <p>مدونة نافذة على إسرائيل. جميع الحقوق محفوظة 2024 &copy; </p>
+   </div>
+</body>
+</html>
